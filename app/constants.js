@@ -17,3 +17,26 @@ export const DashboardSidebarMenus = [
         path: '/dashboard/profile'
     }
 ]
+
+export const CreateSelectOptions = [
+    {
+        name: 'Exam',
+        icon: '/exam.png'
+    },
+    {
+        name: 'Job Interview',
+        icon: '/job.png'
+    },
+    {
+        name: 'Practice',
+        icon: '/practice.png'
+    },
+    {
+        name: 'Coding Prep',
+        icon: '/code.png'
+    },
+    {
+        name: 'Other',
+        icon: '/knowledge.png'
+    }
+]

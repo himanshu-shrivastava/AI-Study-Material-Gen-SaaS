@@ -21,7 +21,9 @@ function SideBar() {
 
             {/* Top Content */ }
             <div className='mt-10'>
-                <Button className='w-full'>+ Create New</Button>
+                <Link href={ '/create' }>
+                    <Button className='w-full'>+ Create New</Button>
+                </Link>
 
                 <div className='mt-5'>
                     { DashboardSidebarMenus.map((menu, index) => (
