@@ -4,10 +4,7 @@ import { UserButton } from "@clerk/nextjs"
 export default function Home() {
   return (
     <div>
-      <h2>Hello From My APP</h2>
-      <Button>Button</Button>
-
-      <UserButton />
+      <h2>Home Page</h2>
     </div>
   )
 }
