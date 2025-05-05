@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import TopicInput from './_components/TopicInput'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 function CreateCourse() {
 
@@ -34,7 +35,8 @@ function CreateCourse() {
             createdBy: user?.primaryEmailAddress?.emailAddress
         }).then(response => {
             setLoading(false)
-            console.log(response.data.result)
+            // console.log('GenerateCourseOutline', response.data.result)
+            toast("Your course is generating. Click on refresh button.")
             router.replace('/dashboard')
         }).catch(error => {
             console.log('GenerateCourseOutline:', error.message)

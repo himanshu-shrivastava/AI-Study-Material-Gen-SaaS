@@ -13,7 +13,7 @@ function Provider({ children }) {
     }, [user])
 
     const CheckNewUser = async () => {
-        // const result = await axios.post('/api/create-user', { user: user })
+        const result = await axios.post('/api/create-user', { user: user })
         // console.log('loggedin-user-data', result.data)
     }
 

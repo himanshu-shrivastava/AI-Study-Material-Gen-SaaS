@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import "./globals.css"
 import { Outfit } from 'next/font/google'
 import Provider from "./provider"
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata = {
   title: "AI Study Material Generator",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <Provider>
             { children }
           </Provider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
