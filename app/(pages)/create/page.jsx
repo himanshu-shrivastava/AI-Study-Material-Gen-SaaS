@@ -10,6 +10,7 @@ import TopicInput from './_components/TopicInput'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import DashboardHeader from '../dashboard/_components/DashboardHeader'
 
 function CreateCourse() {
 
@@ -36,7 +37,7 @@ function CreateCourse() {
         }).then(response => {
             setLoading(false)
             // console.log('GenerateCourseOutline', response.data.result)
-            toast("Your course is generating. Click on refresh button.")
+            toast.info('Your course is generating. Click on refresh button.')
             router.replace('/dashboard')
         }).catch(error => {
             console.log('GenerateCourseOutline:', error.message)
@@ -44,32 +45,34 @@ function CreateCourse() {
     }
 
     return (
-        <div className='flex flex-col items-center p-5 mt-10 md:px-24 lg:px-36'>
-            <h2 className='font-bold text-primary text-3xl'>Start Building Your Personal Study Material</h2>
-            <p className='text-gray-500 text-lg'>Fill all the details in order to generate study material for your next project.</p>
+        <div>
+            <DashboardHeader />
+            <div className='flex flex-col items-center p-5 mt-10 md:px-24 lg:px-36'>
+                <h2 className='font-bold text-primary text-3xl'>Start Building Your Personal Study Material</h2>
+                <p className='text-gray-500 text-lg'>Fill all the details in order to generate study material for your next project.</p>
 
-            <div className='mt-10'>
-                { step === 0
-                    ? <SelectOption selectedCourseType={ (value) => handleUserInput('courseType', value) } />
-                    : <TopicInput
-                        setTopic={ (value) => handleUserInput('topic', value) }
-                        setDifficultyLevel={ (value) => handleUserInput('difficultyLavel', value) }
-                    />
-                }
+                <div className='mt-10'>
+                    { step === 0
+                        ? <SelectOption selectedCourseType={ (value) => handleUserInput('courseType', value) } />
+                        : <TopicInput
+                            setTopic={ (value) => handleUserInput('topic', value) }
+                            setDifficultyLevel={ (value) => handleUserInput('difficultyLavel', value) }
+                        />
+                    }
+                </div>
+
+                <div className='flex justify-center w-full mt-32 gap-16'>
+                    { step !== 0 ? <Button onClick={ () => setStep(step - 1) } disabled={ loading } variant='outline'>Previous</Button> : '' }
+                    { step === 0
+                        ?
+                        <Button onClick={ () => setStep(step + 1) }>Next</Button>
+                        :
+                        <Button onClick={ GenerateCourseOutline } disabled={ loading }>
+                            { loading ? <Loader className='animate-spin' /> : 'Generate' }
+                        </Button>
+                    }
+                </div>
             </div>
-
-            <div className='flex justify-center w-full mt-32 gap-16'>
-                { step !== 0 ? <Button onClick={ () => setStep(step - 1) } disabled={ loading } variant='outline'>Previous</Button> : '' }
-                { step === 0
-                    ?
-                    <Button onClick={ () => setStep(step + 1) }>Next</Button>
-                    :
-                    <Button onClick={ GenerateCourseOutline } disabled={ loading }>
-                        { loading ? <Loader className='animate-spin' /> : 'Generate' }
-                    </Button>
-                }
-            </div>
-
         </div>
     )
 }

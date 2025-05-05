@@ -1,6 +1,6 @@
 "use client"
 
-import { DashboardSidebarMenus } from '@/app/constants'
+import { DASHBOARD_SIDEBAR_MENUS } from '@/app/constants'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ function SideBar() {
                 </Link>
 
                 <div className='mt-5'>
-                    { DashboardSidebarMenus.map((menu, index) => (
+                    { DASHBOARD_SIDEBAR_MENUS.map((menu, index) => (
                         <Link key={ index } href={ menu.path }>
                             <div
                                 className={ `

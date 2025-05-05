@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           <Provider>
             { children }
           </Provider>
-          <Toaster />
+          <Toaster expand={ true } richColors />
         </body>
       </html>
     </ClerkProvider>

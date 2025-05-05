@@ -1,4 +1,4 @@
-import { CreateSelectOptions } from '@/app/constants'
+import { CREATE_SELECT_OPTIONS } from '@/app/constants'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -10,7 +10,7 @@ function SelectOption({ selectedCourseType }) {
             <h3 className='text-center mb-2 text-lg'>For which you want to create your personal study material?</h3>
 
             <div className='mt-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
-                { CreateSelectOptions.map((option, index) => (
+                { CREATE_SELECT_OPTIONS.map((option, index) => (
                     <div
                         key={ index }
                         onClick={ () => {
