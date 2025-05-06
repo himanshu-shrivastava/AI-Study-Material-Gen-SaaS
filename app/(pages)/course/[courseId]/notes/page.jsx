@@ -61,7 +61,7 @@ function ViewNotes() {
                 { stepCount === notes?.length &&
                     <div className='flex flex-col gap-10 justify-center items-center'>
                         <div className='text-green-500 text-2xl'>Completed all the chapters. Hope you learned something!</div>
-                        <Button onClick={ () => router.back() }>Go to Course Page</Button>
+                        <Button onClick={ () => router.back() }>Go back to Course Page</Button>
                     </div>
                 }
             </div>

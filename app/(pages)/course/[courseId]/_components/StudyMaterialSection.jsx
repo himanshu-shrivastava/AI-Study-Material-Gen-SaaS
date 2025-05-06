@@ -4,7 +4,7 @@ import StudyMaterialCard from './StudyMaterialCard'
 import axios from 'axios'
 import { toast } from 'sonner'
 
-function StudyMaterialSection({ courseId }) {
+function StudyMaterialSection({ courseId, course }) {
 
     const [studyTypeContent, setStudyTypeContent] = useState()
     const [loading, setLoading] = useState(false)
@@ -16,15 +16,14 @@ function StudyMaterialSection({ courseId }) {
     const GetStudyMaterial = async () => {
         setLoading(true)
         try {
-            const getStudyTypeContent = await axios.post(`/api/study-type`, {
+            const getStudyContent = await axios.post(`/api/study-type`, {
                 courseId: courseId,
                 studyType: 'ALL'
             })
-            if (getStudyTypeContent?.data?.success) {
-                setStudyTypeContent(getStudyTypeContent?.data?.success)
-                // console.log('getStudyTypeContent', getStudyTypeContent?.data?.success)
+            if (getStudyContent?.data?.success) {
+                setStudyTypeContent(getStudyContent?.data?.success)
             } else {
-                toast.error(getStudyTypeContent?.data?.error)
+                toast.error(getStudyContent?.data?.error)
             }
         } catch (e) {
             console.log('Error:', e.message)
@@ -44,6 +43,8 @@ function StudyMaterialSection({ courseId }) {
                             studyMaterial={ studyMaterial }
                             studyTypeContent={ studyTypeContent }
                             courseId={ courseId }
+                            course={ course }
+                            refreshData={ GetStudyMaterial }
                         />
                     ))
                     :

@@ -53,21 +53,21 @@ export const STUDY_MATERIAL_OPTIONS = [
         name: 'Flashcard',
         desc: 'Flashcard help to remember the concepts',
         icon: '/flashcard.png',
-        path: '/flashcard',
+        path: '/flashcards',
         type: 'flashcard'
     },
     {
         name: 'Quiz',
         desc: 'Great way to test your knowledge',
         icon: '/quiz.png',
-        path: '/quiz',
+        path: '/quizzes',
         type: 'quiz'
     },
     {
-        name: 'Q&A',
+        name: 'QA',
         desc: 'Help to practice your learning',
         icon: '/qa.png',
-        path: '/qa',
+        path: '/question-answers',
         type: 'qa'
     },
 ]

@@ -35,7 +35,6 @@ function CreateCourse() {
             createdBy: user?.primaryEmailAddress?.emailAddress
         }).then(response => {
             setLoading(false)
-            // console.log('GenerateCourseOutline', response.data.result)
             toast.info('Your course is generating. Click on refresh button.')
             router.replace('/dashboard')
         }).catch(error => {

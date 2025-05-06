@@ -13,7 +13,7 @@ export async function POST(req) {
             }
         })
 
-        return NextResponse.json({ result: result })
+        return NextResponse.json({ 'success': result })
     }
     catch (e) {
         return NextResponse.json(e.message)

@@ -12,14 +12,12 @@ function Course() {
 
     const { courseId } = useParams()
     const [course, setCourse] = useState()
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         GetCourseByID()
     }, [])
 
     const GetCourseByID = async () => {
-        setLoading(true)
         try {
             const getCourse = await axios.get(`/api/courses?courseId=${courseId}`)
             if (getCourse?.data?.success) {
@@ -30,8 +28,6 @@ function Course() {
             }
         } catch (e) {
             console.log('Error:', e.message)
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -42,7 +38,7 @@ function Course() {
                 <CourseIntroSection course={ course } />
 
                 {/* Study Materials Options */ }
-                <StudyMaterialSection courseId={ courseId } />
+                <StudyMaterialSection courseId={ courseId } course={ course } />
 
                 {/* Chapter List */ }
                 <CourseChapterList course={ course } />

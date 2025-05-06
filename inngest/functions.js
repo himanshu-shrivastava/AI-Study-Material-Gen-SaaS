@@ -1,13 +1,14 @@
 import { db } from "@/configs/db"
 import { inngest } from "./client"
-import { chapterNotestable, studyMaterialTable, usersTable } from "@/configs/schema"
+import { chapterNotestable, studyMaterialTable, studyTypeContentTable, usersTable } from "@/configs/schema"
 import { eq } from "drizzle-orm"
-import { generateNotesAIModel } from "@/configs/AiModel"
+import { generateNotesAIModel, generateStudyTypeContentAIModel } from "@/configs/AiModel"
 
 export const INNGEST_EVENT_NAMES = {
     'HELLO_WORLD': 'hello.world',
     'CREATE_USER': 'user.create',
-    'GENERATE_NOTES': 'notes.generate'
+    'GENERATE_NOTES': 'notes.generate',
+    'STUDY_TYPE_CONTENT': 'studytype.content'
 }
 
 export const helloWorld = inngest.createFunction(
@@ -67,7 +68,7 @@ export const GenerateNotes = inngest.createFunction(
                 const ai_response = await generateNotesAIModel.sendMessage(PROMPT)
                 const ai_notes_html = ai_response.response.text().split('```html').pop().split('```')[0]
 
-                /* Save data to database */
+                // Save data to database
                 await db.insert(chapterNotestable).values({
                     chapterId: index,
                     courseId: course?.courseId,
@@ -86,6 +87,33 @@ export const GenerateNotes = inngest.createFunction(
                 studyMaterialTable.courseId, course?.courseId
             ))
             return 'Course Status Updated'
+        })
+
+        return 'Success'
+    }
+)
+
+// Used to generate Flashcards, Quizzes and Questions-Answers
+export const GenerateStudyTypeContent = inngest.createFunction(
+    { id: 'generate-study-type-content' },
+    { event: INNGEST_EVENT_NAMES.STUDY_TYPE_CONTENT },
+    async ({ event, step }) => {
+        const { studyType, prompt, courseId, recordId } = event.data
+
+        // Generate Notes for Each Chapter with AI
+        const flashcardAiResult = await step.run('Generate Flashcard Using AI', async () => {
+            const ai_result = await generateStudyTypeContentAIModel.sendMessage(prompt)
+            const ai_response = ai_result.response.text().split('```json').pop().split('```')[0]
+            return ai_response
+        })
+
+        // Save Result to DB
+        const dbResult = await step.run('Save Result to DB', async () => {
+            await db.update(studyTypeContentTable).set({
+                content: flashcardAiResult,
+                status: 'Ready'
+            }).where(eq(studyTypeContentTable.id, recordId))
+            return 'Data Updated'
         })
 
         return 'Success'

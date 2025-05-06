@@ -11,9 +11,8 @@ export async function POST(req) {
 
         const PROMPT = `Generate a study material for topic ${topic}: for ${courseType}: and level of difficulty will be ${difficultyLavel} with summary of course, Topic and Difficulty Level, List of Chapters (Max 3) along with Summary and Emoji icon for each chapter, Topic list in each chapter, All results in JSON format.`
 
-        const ai_response = await courseOutlineAIModel.sendMessage(PROMPT)
-        const ai_result = ai_response.response.text().split('```json').pop().split('```')[0]
-        // console.log('ai_result', ai_result)
+        const ai_result = await courseOutlineAIModel.sendMessage(PROMPT)
+        const ai_response = ai_result.response.text().split('```json').pop().split('```')[0]
 
         /* Save data to database */
         const db_insert = await db.insert(studyMaterialTable).values({
@@ -21,7 +20,7 @@ export async function POST(req) {
             courseType: courseType,
             topic: topic,
             difficultyLevel: difficultyLavel,
-            courseLayout: ai_result,
+            courseLayout: ai_response,
             createdBy: createdBy
         }).returning(studyMaterialTable)
 
@@ -34,8 +33,7 @@ export async function POST(req) {
         })
         console.log('inngest_result', inngest_result)
 
-        // console.log('db_insert', db_insert)
-        return NextResponse.json({ 'result': db_insert[0] })
+        return NextResponse.json({ 'success': db_insert[0] })
     }
     catch (e) {
         return NextResponse.json("Error Message:", e.message)
