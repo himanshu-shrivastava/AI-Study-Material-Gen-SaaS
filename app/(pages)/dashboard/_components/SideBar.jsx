@@ -11,16 +11,11 @@ import React from 'react'
 function SideBar() {
 
     const currentPath = usePathname()
+
     return (
         <div className='h-screen shadow-md p-5'>
-
-            <div className='flex gap-2 items-center'>
-                <Image src={ '/logo.svg' } alt='Logo' width={ 40 } height={ 40 } />
-                <h2 className='font-bold text-2xl'>Easy Study</h2>
-            </div>
-
             {/* Top Content */ }
-            <div className='mt-10'>
+            <div className='mt-2'>
                 <Link href={ '/create' }>
                     <Button className='w-full'>+ Create New</Button>
                 </Link>
@@ -43,7 +38,7 @@ function SideBar() {
             </div>
 
             {/* Bottom Content */ }
-            <div className='border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[85%]'>
+            <div className='border p-3 bg-slate-100 rounded-lg absolute bottom-32 w-[85%]'>
                 <h2 className='text-lg mb-2'>Available Credits : 5</h2>
                 <Progress value={ 20 } />
                 <h2 className='text-sm mt-1'>1 Out of 5 Cretits Used</h2>

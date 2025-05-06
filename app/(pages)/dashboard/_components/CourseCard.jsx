@@ -14,14 +14,14 @@ function CourseCard({ course }) {
                     <h2 className='text-[10px] p-1 px-2 rounded-full bg-blue-600 text-white'>01 May 2025</h2>
                 </div>
 
-                <h2 className='mt-3 font-medium text-lg'>{ course?.courseLayout?.courseTopic }</h2>
+                <h2 className='mt-3 font-medium text-lg line-clamp-2 h-[60px]' title={ course?.courseLayout?.courseTopic }>{ course?.courseLayout?.courseTopic }</h2>
                 <p className='text-sm line-clamp-2 text-gray-500 mt-2'>{ course?.courseLayout?.courseSummary }</p>
 
                 <div className='mt-3'>
                     <Progress value={ 0 } />
                 </div>
 
-                <div className='mt-3 flex justify-end'>
+                <div className='mt-3 flex justify-center'>
                     { course?.status === 'Generating'
                         ?
                         <h2 className='text-sm flex gap-2 items-center p-1 px-2 rounded-full bg-gray-400 text-white'>

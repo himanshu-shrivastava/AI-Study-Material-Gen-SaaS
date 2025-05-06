@@ -16,6 +16,7 @@ export async function POST(req) {
         if (studyType === 'ALL') {
             const notes = await db.select().from(chapterNotestable)
                 .where(eq(chapterNotestable?.courseId, courseId))
+                .orderBy(chapterNotestable.chapterId)
 
             if (notes.length > 0) {
                 result.notes = notes
@@ -23,7 +24,15 @@ export async function POST(req) {
 
             return NextResponse.json({ 'success': result })
         }
-    } catch (e) {
+        else if (studyType === 'notes') {
+            const notes = await db.select().from(chapterNotestable)
+                .where(eq(chapterNotestable?.courseId, courseId))
+                .orderBy(chapterNotestable.chapterId)
+
+            return NextResponse.json({ 'success': notes })
+        }
+    }
+    catch (e) {
         return NextResponse.json({ 'error': e.message })
     }
 }

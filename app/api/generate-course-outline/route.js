@@ -9,7 +9,7 @@ export async function POST(req) {
     try {
         const { courseId, topic, courseType, difficultyLavel, createdBy } = await req.json()
 
-        const PROMPT = `Generate a study material for topic ${topic}: for ${courseType}: and level of difficulty will be ${difficultyLavel} with summary of course, Topic and Difficulty Level, List of Chapters (Max 3) along with Summary and Emoji Icon for each chapter, Topic list in each chapter, All results in JSON format.`
+        const PROMPT = `Generate a study material for topic ${topic}: for ${courseType}: and level of difficulty will be ${difficultyLavel} with summary of course, Topic and Difficulty Level, List of Chapters (Max 3) along with Summary and Emoji icon for each chapter, Topic list in each chapter, All results in JSON format.`
 
         const ai_response = await courseOutlineAIModel.sendMessage(PROMPT)
         const ai_result = ai_response.response.text().split('```json').pop().split('```')[0]

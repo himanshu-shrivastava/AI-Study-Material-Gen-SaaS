@@ -2,7 +2,6 @@
 
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import DashboardHeader from '../../dashboard/_components/DashboardHeader'
 import { toast } from 'sonner'
 import axios from 'axios'
 import CourseIntroSection from './_components/CourseIntroSection'
@@ -25,7 +24,7 @@ function Course() {
             const getCourse = await axios.get(`/api/courses?courseId=${courseId}`)
             if (getCourse?.data?.success) {
                 setCourse(getCourse?.data?.success[0])
-                console.log('getCourse', getCourse?.data?.success[0])
+                // console.log('getCourse', getCourse?.data?.success[0])
             } else {
                 toast.error(getCourse?.data?.error)
             }
@@ -38,9 +37,7 @@ function Course() {
 
     return (
         <div>
-            <DashboardHeader />
-
-            <div className='mx-10 md:mx-32 lg:mx-56 mt-10'>
+            <div>
                 {/* Course Info */ }
                 <CourseIntroSection course={ course } />
 

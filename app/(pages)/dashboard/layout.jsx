@@ -1,6 +1,5 @@
 import React from 'react'
 import SideBar from './_components/SideBar'
-import DashboardHeader from './_components/Dashboardheader'
 
 function DashboadLayout({ children }) {
     return (
@@ -9,7 +8,6 @@ function DashboadLayout({ children }) {
                 <SideBar />
             </div>
             <div className='md:ml-64'>
-                <DashboardHeader />
                 <div className='p-10'>
                     { children }
                 </div>

@@ -10,7 +10,6 @@ import TopicInput from './_components/TopicInput'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import DashboardHeader from '../dashboard/_components/DashboardHeader'
 
 function CreateCourse() {
 
@@ -46,7 +45,6 @@ function CreateCourse() {
 
     return (
         <div>
-            <DashboardHeader />
             <div className='flex flex-col items-center p-5 mt-10 md:px-24 lg:px-36'>
                 <h2 className='font-bold text-primary text-3xl'>Start Building Your Personal Study Material</h2>
                 <p className='text-gray-500 text-lg'>Fill all the details in order to generate study material for your next project.</p>

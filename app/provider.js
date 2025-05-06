@@ -3,6 +3,7 @@
 import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
 import React, { useEffect } from 'react'
+import Header from './_components/Header'
 
 function Provider({ children }) {
 
@@ -19,6 +20,7 @@ function Provider({ children }) {
 
     return (
         <div>
+            <Header />
             { children }
         </div>
     )

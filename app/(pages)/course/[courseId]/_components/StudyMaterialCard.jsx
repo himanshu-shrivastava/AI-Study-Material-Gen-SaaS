@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
-function StudyMaterialCard({ studyMaterial, studyTypeContent }) {
+function StudyMaterialCard({ studyMaterial, studyTypeContent, courseId }) {
     return (
         <div className={ `
             border shadow-md rounded-lg p-3 flex flex-col items-center justify-between
@@ -19,7 +20,7 @@ function StudyMaterialCard({ studyMaterial, studyTypeContent }) {
             </div>
             { studyTypeContent?.[studyMaterial.type] === null
                 ? <Button className='mt-3 w-full' variant='outline'>Generate</Button>
-                : <Button className='mt-3 w-full'>View</Button>
+                : <Link href={ `/course/${courseId}/${studyMaterial.type}` }><Button className='mt-3 w-full'>View</Button></Link>
             }
         </div>
     )

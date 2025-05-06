@@ -22,7 +22,7 @@ function StudyMaterialSection({ courseId }) {
             })
             if (getStudyTypeContent?.data?.success) {
                 setStudyTypeContent(getStudyTypeContent?.data?.success)
-                console.log('getStudyTypeContent', getStudyTypeContent?.data?.success)
+                // console.log('getStudyTypeContent', getStudyTypeContent?.data?.success)
             } else {
                 toast.error(getStudyTypeContent?.data?.error)
             }
@@ -43,6 +43,7 @@ function StudyMaterialSection({ courseId }) {
                             key={ index }
                             studyMaterial={ studyMaterial }
                             studyTypeContent={ studyTypeContent }
+                            courseId={ courseId }
                         />
                     ))
                     :
