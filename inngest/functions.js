@@ -2,7 +2,7 @@ import { db } from "@/configs/db"
 import { inngest } from "./client"
 import { chapterNotestable, studyMaterialTable, studyTypeContentTable, usersTable } from "@/configs/schema"
 import { eq } from "drizzle-orm"
-import { generateNotesAIModel, generateStudyTypeContentAIModel } from "@/configs/AiModel"
+import { generateNotesAIModel, generateFlashcardAIModel, generateQuizAIModel } from "@/configs/AiModel"
 
 export const INNGEST_EVENT_NAMES = {
     'HELLO_WORLD': 'hello.world',
@@ -100,22 +100,28 @@ export const GenerateStudyTypeContent = inngest.createFunction(
     async ({ event, step }) => {
         const { studyType, prompt, courseId, recordId } = event.data
 
-        // Generate Notes for Each Chapter with AI
-        const flashcardAiResult = await step.run('Generate Flashcard Using AI', async () => {
-            const ai_result = await generateStudyTypeContentAIModel.sendMessage(prompt)
-            const ai_response = ai_result.response.text().split('```json').pop().split('```')[0]
-            return ai_response
-        })
+        // Generate Flashcards/Quiz using Prompt
+        if (prompt && studyType) {
+            const AiResult = await step.run(`Generate ${studyType} Using AI`, async () => {
+                let result = ''
+                if (studyType === 'Flashcard')
+                    result = await generateFlashcardAIModel.sendMessage(prompt)
+                else if (studyType === 'Quiz')
+                    result = await generateQuizAIModel.sendMessage(prompt)
 
-        // Save Result to DB
-        const dbResult = await step.run('Save Result to DB', async () => {
-            await db.update(studyTypeContentTable).set({
-                content: flashcardAiResult,
-                status: 'Ready'
-            }).where(eq(studyTypeContentTable.id, recordId))
-            return 'Data Updated'
-        })
+                return result.response.text().split('```json').pop().split('```')[0]
+            })
 
-        return 'Success'
+            // Save Result to DB
+            const dbResult = await step.run('Save Result to DB', async () => {
+                await db.update(studyTypeContentTable).set({
+                    content: AiResult,
+                    status: 'Ready'
+                }).where(eq(studyTypeContentTable.id, recordId))
+                return 'Data Updated'
+            })
+            return 'Success'
+        }
+        return 'Invalid Request'
     }
 )

@@ -28,7 +28,6 @@ function ViewNotes() {
             })
             if (getNotes?.data?.success) {
                 setNotes(getNotes?.data?.success)
-                // console.log('getNotes', getNotes?.data?.success)
             } else {
                 toast.error(getNotes?.data?.error)
             }
@@ -43,11 +42,7 @@ function ViewNotes() {
         <div>
             <div className='flex gap-5 items-center'>
                 { notes?.map((note, index) => (
-                    <div
-                        key={ index }
-                        className={ `w-full h-2 rounded-full ${index < stepCount ? 'bg-primary' : 'bg-gray-200'}` }
-                    >
-                    </div>
+                    <div key={ index } className={ `w-full h-2 rounded-full ${index < stepCount ? 'bg-primary' : 'bg-gray-200'}` }></div>
                 )) }
             </div>
 

@@ -8,26 +8,32 @@ export async function POST(req) {
     try {
         const { chapters, studyType, courseId } = await req.json()
 
-        const PROMPT = `Generate the flashcard on topic : ${chapters} in JSON format with front back content, Maximum 15.`
+        let PROMPT = ''
+        if (studyType === 'Quiz')
+            PROMPT = `Generate Quiz on topic : ${chapters} with Question and Options along with correct answer in JSON format (Max 10).`
+        else if (studyType === 'Flashcard')
+            PROMPT = `Generate the flashcard on topic : ${chapters} in JSON format with front back content, Maximum 15.`
 
-        // Insert Record to DB
-        const db_insert = await db.insert(studyTypeContentTable).values({
-            courseId: courseId,
-            type: studyType,
-        }).returning({ recordId: studyTypeContentTable.id })
-
-        // Trigger Inngest Function
-        inngest.send({
-            name: INNGEST_EVENT_NAMES.STUDY_TYPE_CONTENT,
-            data: {
-                prompt: PROMPT,
-                studyType: studyType,
+        if (PROMPT) {
+            // Insert Record to DB
+            const db_insert = await db.insert(studyTypeContentTable).values({
                 courseId: courseId,
-                recordId: db_insert[0].recordId
-            }
-        })
+                type: studyType,
+            }).returning({ recordId: studyTypeContentTable.id })
 
-        return NextResponse.json({ 'success': db_insert[0] })
+            // Trigger Inngest Function
+            inngest.send({
+                name: INNGEST_EVENT_NAMES.STUDY_TYPE_CONTENT,
+                data: {
+                    prompt: PROMPT,
+                    studyType: studyType,
+                    courseId: courseId,
+                    recordId: db_insert[0].recordId
+                }
+            })
+            return NextResponse.json({ 'success': db_insert[0] })
+        }
+        return NextResponse.json({ 'error': 'Invalid Request' })
     }
     catch (e) {
         return NextResponse.json("error:", e.message)

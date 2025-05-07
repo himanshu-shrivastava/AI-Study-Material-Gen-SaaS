@@ -6,18 +6,23 @@ import Link from 'next/link'
 
 function Header() {
     return (
-        <div className='p-5 px-5 shadow-md flex justify-between items-center relative w-full'>
+        <header className='p-5 px-5 shadow-md flex justify-between items-center relative w-full'>
             <div className='flex gap-2 items-center'>
                 <Image src={ '/logo.svg' } alt='Logo' width={ 40 } height={ 40 } />
                 <h2 className='font-bold text-2xl'>Easy Study</h2>
             </div>
-            <div className='flex gap-10 items-center'>
+            <div className='flex gap-8 items-center mr-2'>
+                <Link href={ '/upgrade' }>
+                    <Button title='Click to create more Credits' className='md:hidden bg-yellow-300 text-red-700 font-bold hover:bg-yellow-400'>
+                        Available Credits : 5
+                    </Button>
+                </Link>
                 <Link href={ '/dashboard' }>
                     <Button className='bg-primary'>Dashboard</Button>
                 </Link>
                 <UserButton />
             </div>
-        </div>
+        </header>
     )
 }
 

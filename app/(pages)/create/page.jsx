@@ -58,7 +58,7 @@ function CreateCourse() {
                     }
                 </div>
 
-                <div className='flex justify-center w-full mt-32 gap-16'>
+                <div className='flex justify-center w-full mt-20 gap-16'>
                     { step !== 0 ? <Button onClick={ () => setStep(step - 1) } disabled={ loading } variant='outline'>Previous</Button> : '' }
                     { step === 0
                         ?

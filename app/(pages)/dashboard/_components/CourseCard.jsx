@@ -6,12 +6,27 @@ import Link from 'next/link'
 import React from 'react'
 
 function CourseCard({ course }) {
+
+    const convertDatetoISO = (isoString) => {
+        const date = new Date(isoString)
+
+        const options = {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'Asia/Kolkata'
+        }
+
+        const formatter = new Intl.DateTimeFormat('en-GB', options)
+        return formatter.format(date)
+    }
+
     return (
         <div className='border rounded-lg shadow-md p-5'>
             <div>
                 <div className='flex justify-between items-center'>
                     <Image src={ '/knowledge.png' } alt='Course Card Image' width={ 50 } height={ 50 } />
-                    <h2 className='text-[10px] p-1 px-2 rounded-full bg-blue-600 text-white'>01 May 2025</h2>
+                    <h2 className='text-[12px] p-1 px-3 rounded-full bg-blue-400 text-white'>{ convertDatetoISO(course?.createdAt) }</h2>
                 </div>
 
                 <h2 className='mt-3 font-medium text-lg line-clamp-2 h-[60px]' title={ course?.courseLayout?.courseTopic }>{ course?.courseLayout?.courseTopic }</h2>

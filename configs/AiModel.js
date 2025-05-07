@@ -51,7 +51,7 @@ export const generateNotesAIModel = model.startChat({
     ],
 })
 
-export const generateStudyTypeContentAIModel = model.startChat({
+export const generateFlashcardAIModel = model.startChat({
     jsonResultConfig,
     history: [
         {
@@ -61,6 +61,20 @@ export const generateStudyTypeContentAIModel = model.startChat({
         {
             role: "model",
             parts: [{ text: `\`\`\`json[{"front": "What is a Widget in Flutter?","back": "A Widget is the fundamental building block of Flutter UI.  Everything you see on the screen is a Widget, including layouts, text, images, and even the app itself."},{"front": "What are the two main types of Widgets?","back": "StatelessWidget and StatefulWidget. StatelessWidgets don't change their state, while StatefulWidgets can update their UI based on changes."},{"front": "Explain the difference between StatelessWidget and StatefulWidget.","back": "StatelessWidget is immutable; its UI is built only once. StatefulWidget is mutable; its UI can be updated based on internal state changes."},{"front": "What is the purpose of a BuildContext?","back": "BuildContext provides information about a Widget's position within the widget tree, allowing access to services and parent widgets."},{"front": "Name three common layout widgets.","back": "Row, Column, and Stack are commonly used to arrange widgets horizontally, vertically, and overlapping, respectively."},{"front": "How do you create a simple Text widget?","back": " \`Text('Hello, Flutter!')\`"},{"front": "What widget is commonly used for displaying images?","back": "Image.asset() or Image.network()"},{"front": "What is the purpose of a MaterialApp widget?","back": "MaterialApp provides a Material Design theme and structure to your Flutter app. It's typically the root widget."},{"front": "How do you navigate to a new screen using Navigator?","back": "Use \`Navigator.push(context, MaterialPageRoute(builder: (context) => NewScreen()));\`"},{"front": "How do you return data from a new screen after navigation?","back": "Use \`Navigator.pop(context, returnedData);\` to pop the current route and pass data back."},{"front": "What is a Route in Flutter?","back": "A route represents a screen in your app's navigation stack.  It's managed by the Navigator."},{"front": "What is the purpose of \`Scaffold\`?","back": "Scaffold provides a basic visual layout structure for your app, including AppBar, body, and bottomNavigationBar."},{"front": "How to handle user interactions like button clicks?","back": "Use \`onPressed\` property within a button widget to define a function to execute on click."},{"front": "What is a key and when do you need it?","back": "Keys help Flutter identify widgets across rebuilds, preventing unnecessary re-renders, especially useful in dynamic lists or animations."},{"front": "What is the difference between \`setState()\` and \`rebuild()\`?","back": "\`setState()\` triggers a rebuild of the StatefulWidget. \`rebuild()\` is called internally by Flutter when state changes."}]\`\`\`` }],
+        },
+    ],
+})
+
+export const generateQuizAIModel = model.startChat({
+    jsonResultConfig,
+    history: [
+        {
+            role: "user",
+            parts: [{ text: `Generate Quiz on topic : Flutter Fundamentals, User Interface (UI) Development, Basic App Navigation with Question and Options along with correct answer in JSON format (Max 10).` }],
+        },
+        {
+            role: "model",
+            parts: [{ text: `\`\`\`json{"quizTitle": "Flutter Fundamentals & UI Navigation Quiz","questions": [{"question": "What is the fundamental building block of a Flutter UI?","options": ["Widget", "Layout", "View", "Activity"],"correctAnswer": "Widget"},{"question": "Which widget is used to arrange children in a column?","options": ["Row", "Column", "Stack", "Container"],"correctAnswer": "Column"},{"question": "What is the purpose of the \`Scaffold\` widget?","options": ["Provides basic material design layout structure", "Handles state management", "Performs network requests", "Manages app navigation"],"correctAnswer": "Provides basic material design layout structure"},{"question": "Which widget is best suited for displaying a list of items that can be scrolled?","options": ["ListView", "GridView", "Column", "Row"],"correctAnswer": "ListView"},{"question": "How do you navigate to a new route in Flutter?","options": ["\`Navigator.push(context, MaterialPageRoute(...))\`", "\`startActivity(...)\`", "\`gotoRoute(...)\`", "\`changeRoute(...)\`"],"correctAnswer": "\`Navigator.push(context, MaterialPageRoute(...))\`"},{"question": "What is the purpose of a \`BuildContext\`?","options": ["To manage application state", "To provide information about the location of a widget in the widget tree", "To handle user input", "To store application data"],"correctAnswer": "To provide information about the location of a widget in the widget tree"},{"question": "Which widget is used to create a simple button in Flutter?","options": ["IconButton", "TextButton", "ElevatedButton", "All of the above"],"correctAnswer": "All of the above"},{"question": "What does \`setState()\` do?","options": ["Changes the app theme", "Triggers a rebuild of the widget tree", "Handles navigation", "Manages app lifecycle"],"correctAnswer": "Triggers a rebuild of the widget tree"},{"question": "Which widget is used for creating a text field for user input?","options": ["TextField", "Text", "Container", "Input"],"correctAnswer": "TextField"},{"question": "What is the difference between \`StatelessWidget\` and \`StatefulWidget\`?","options": ["\`StatelessWidget\` doesn't change its state, while \`StatefulWidget\` does.", "\`StatelessWidget\` handles user input, \`StatefulWidget\` does not.", "\`StatefulWidget\` is faster than \`StatelessWidget\`.", "There is no difference."],"correctAnswer": "\`StatelessWidget\` doesn't change its state, while \`StatefulWidget\` does."}]}\`\`\`` }],
         },
     ],
 })

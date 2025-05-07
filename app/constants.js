@@ -36,6 +36,10 @@ export const CREATE_SELECT_OPTIONS = [
         icon: '/code.png'
     },
     {
+        name: 'Fitness',
+        icon: '/fitness.png'
+    },
+    {
         name: 'Other',
         icon: '/knowledge.png'
     }

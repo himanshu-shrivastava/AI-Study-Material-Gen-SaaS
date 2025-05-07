@@ -9,7 +9,7 @@ function SelectOption({ selectedCourseType }) {
         <div>
             <h3 className='text-center mb-2 text-lg'>For which you want to create your personal study material?</h3>
 
-            <div className='mt-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
+            <div className='mt-5 grid grid-cols-2 md:grid-cols-3 gap-5'>
                 { CREATE_SELECT_OPTIONS.map((option, index) => (
                     <div
                         key={ index }
@@ -22,7 +22,7 @@ function SelectOption({ selectedCourseType }) {
                             ${option.name === selectedOption && 'border-primary'}
                         `}
                     >
-                        <Image src={ option.icon } alt={ option.name } width={ 50 } height={ 50 } />
+                        <Image src={ option.icon } alt={ option.name } width={ 70 } height={ 70 } />
                         <h2 className='text-sm'>{ option.name }</h2>
                     </div>
                 )) }

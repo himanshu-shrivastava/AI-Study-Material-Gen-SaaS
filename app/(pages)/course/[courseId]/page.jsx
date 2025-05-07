@@ -14,15 +14,14 @@ function Course() {
     const [course, setCourse] = useState()
 
     useEffect(() => {
-        GetCourseByID()
+        GetCourseByCourseID()
     }, [])
 
-    const GetCourseByID = async () => {
+    const GetCourseByCourseID = async () => {
         try {
             const getCourse = await axios.get(`/api/courses?courseId=${courseId}`)
             if (getCourse?.data?.success) {
                 setCourse(getCourse?.data?.success[0])
-                // console.log('getCourse', getCourse?.data?.success[0])
             } else {
                 toast.error(getCourse?.data?.error)
             }
