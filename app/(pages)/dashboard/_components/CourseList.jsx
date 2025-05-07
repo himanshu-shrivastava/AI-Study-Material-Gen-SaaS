@@ -4,7 +4,7 @@ import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import CourseCard from './CourseCard'
-import { LoaderPinwheel, RefreshCcw } from 'lucide-react'
+import { RefreshCcw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 function CourseList() {
@@ -51,7 +51,6 @@ function CourseList() {
             <div className='grid grid-cols-1 justify-center md:grid-cols-2 lg:grid-cols-3 mt-3 gap-5'>
                 { loading
                     ?
-                    // <LoaderPinwheel className='animate-spin' />
                     [1, 2, 3, 4, 5].map((item, index) => (
                         <div key={ index } className='h-56 w-full bg-slate-200 rounded-lg animate-pulse'></div>
                     ))

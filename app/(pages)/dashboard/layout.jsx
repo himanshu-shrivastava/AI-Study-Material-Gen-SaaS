@@ -8,7 +8,7 @@ function DashboadLayout({ children }) {
                 <SideBar />
             </div>
             <div className='md:ml-64'>
-                <div className='md:p-7 px-12 py-7'>
+                <div className='md:p-7 px-20 py-7'>
                     { children }
                 </div>
             </div>

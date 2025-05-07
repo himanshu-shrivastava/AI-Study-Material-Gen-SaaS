@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { Loader } from 'lucide-react'
@@ -10,6 +10,7 @@ import TopicInput from './_components/TopicInput'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { CourseContext } from '@/app/_context/CourseContext'
 
 function CreateCourse() {
 
@@ -18,6 +19,14 @@ function CreateCourse() {
     const [loading, setLoading] = useState(false)
     const { user } = useUser()
     const router = useRouter()
+    const { totalCourse, totalCredits, setTotalCourse } = useContext(CourseContext)
+
+    useEffect(() => {
+        if (totalCourse >= totalCredits) {
+            toast.error('No Credit Available. Please Upgrade')
+            router.replace('/dashboard/upgrade')
+        }
+    }, [totalCourse, totalCredits])
 
     const handleUserInput = (fieldName, fieldValue) => {
         setFormData(prev => ({
@@ -36,6 +45,7 @@ function CreateCourse() {
         }).then(response => {
             setLoading(false)
             toast.info('Your course is generating. Click on refresh button.')
+            setTotalCourse(totalCourse + 1)
             router.replace('/dashboard')
         }).catch(error => {
             console.log('GenerateCourseOutline:', error.message)
