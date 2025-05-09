@@ -10,19 +10,21 @@ import { CourseContext } from '../_context/CourseContext'
 function Header() {
 
     const { isLoaded, isSignedIn } = useUser()
-    const { totalCourse, totalCredits } = useContext(CourseContext)
+    const { totalCourses, userDetail } = useContext(CourseContext)
 
     return (
         <header className='p-5 px-5 shadow-md flex justify-between items-center relative w-full'>
-            <div className='flex gap-2 items-center'>
-                <Image src={ '/logo.svg' } alt='Logo' width={ 40 } height={ 40 } />
-                <h2 className='font-bold text-2xl'>Easy Study</h2>
-            </div>
+            <Link href={ '/' }>
+                <div className='flex gap-2 items-center'>
+                    <Image src={ '/logo.svg' } alt='Logo' width={ 40 } height={ 40 } />
+                    <h2 className='font-bold text-2xl'>Easy Study</h2>
+                </div>
+            </Link>
             <div className='flex gap-8 items-center mr-2'>
-                { isLoaded && isSignedIn &&
+                { isLoaded && isSignedIn && userDetail?.isMember === false &&
                     <Link href={ '/upgrade' }>
                         <Button title='Click to create more Credits' className='md:hidden bg-yellow-300 text-red-700 font-bold hover:bg-yellow-400'>
-                            Available Credits : { (totalCredits - totalCourse) }
+                            Available Credits : { (userDetail?.credits - totalCourses) }
                         </Button>
                     </Link>
                 }

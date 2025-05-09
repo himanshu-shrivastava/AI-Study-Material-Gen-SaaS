@@ -9,13 +9,14 @@ import { CourseContext } from './_context/CourseContext'
 function Provider({ children }) {
 
     const { user } = useUser()
-    const [totalCourse, setTotalCourse] = useState(0)
-    const [totalCredits, setTotalCredits] = useState(0)
+    const [totalCourses, setTotalCourses] = useState(0)
+    const [userDetail, setUserDetail] = useState({})
+
     const values = {
-        totalCourse,
-        setTotalCourse,
-        totalCredits,
-        setTotalCredits
+        totalCourses,
+        setTotalCourses,
+        userDetail,
+        setUserDetail
     }
 
     useEffect(() => {
@@ -23,15 +24,15 @@ function Provider({ children }) {
     }, [user])
 
     const CheckNewUser = async () => {
-        const result = await axios.post('/api/create-user', { user: user })
-        // console.log('loggedin-user-data', result.data)
+        const userResult = await axios.post('/api/create-user', { user: user })
+        // console.log('loggedin-user-data', userResult.data)
 
         //Get Courses
-        if (result?.data?.success && result?.data?.success?.credits) {
+        if (userResult?.data?.success && userResult?.data?.success?.email) {
             const getCourses = await axios.post(`/api/courses`, { createdBy: user?.primaryEmailAddress.emailAddress })
             if (getCourses?.data?.success) {
-                setTotalCourse(getCourses?.data?.success?.length)
-                setTotalCredits(result?.data?.success?.credits)
+                setTotalCourses(getCourses?.data?.success?.length)
+                setUserDetail(userResult?.data?.success)
             }
         }
     }

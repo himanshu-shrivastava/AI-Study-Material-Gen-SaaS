@@ -19,14 +19,14 @@ function CreateCourse() {
     const [loading, setLoading] = useState(false)
     const { user } = useUser()
     const router = useRouter()
-    const { totalCourse, totalCredits, setTotalCourse } = useContext(CourseContext)
+    const { totalCourses, setTotalCourses, userDetail } = useContext(CourseContext)
 
     useEffect(() => {
-        if (totalCourse >= totalCredits) {
+        if (userDetail?.isMember === false && totalCourses >= userDetail?.credits) {
             toast.error('No Credit Available. Please Upgrade')
             router.replace('/dashboard/upgrade')
         }
-    }, [totalCourse, totalCredits])
+    }, [totalCourses])
 
     const handleUserInput = (fieldName, fieldValue) => {
         setFormData(prev => ({
@@ -45,7 +45,7 @@ function CreateCourse() {
         }).then(response => {
             setLoading(false)
             toast.info('Your course is generating. Click on refresh button.')
-            setTotalCourse(totalCourse + 1)
+            setTotalCourses(totalCourses + 1)
             router.replace('/dashboard')
         }).catch(error => {
             console.log('GenerateCourseOutline:', error.message)

@@ -1,25 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
+import { convertDatetoISO } from '@/lib/utils'
 import { RefreshCcw } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 function CourseCard({ course }) {
-
-    const convertDatetoISO = (isoString) => {
-        const date = new Date(isoString)
-
-        const options = {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'Asia/Kolkata'
-        }
-
-        const formatter = new Intl.DateTimeFormat('en-GB', options)
-        return formatter.format(date)
-    }
 
     return (
         <div className='border rounded-lg shadow-md p-5'>

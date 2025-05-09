@@ -6,6 +6,7 @@ export const usersTable = pgTable("users", {
     email: varchar({ length: 255 }).notNull().unique(),
     isMember: boolean().default(false),
     credits: integer().default(5),
+    customerId: varchar(),
     createdAt: timestamp({ mode: 'date', precision: 0 }).defaultNow()
 })
 
@@ -34,4 +35,11 @@ export const studyTypeContentTable = pgTable("studyTypeContents", {
     type: varchar().notNull(),
     content: json(),
     status: varchar().default('Generating')
+})
+
+export const paymentTable = pgTable("payments", {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    customerId: varchar().notNull(),
+    sessionId: varchar().notNull(),
+    createdAt: timestamp({ mode: 'date', precision: 0 }).defaultNow()
 })
