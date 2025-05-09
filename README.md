@@ -1,4 +1,4 @@
-# AI STUDY MATERIAL GENERATOR
+# AI STUDY MATERIAL GENERATOR (LMS Platform)
 
 <div>
 <img src="https://img.shields.io/badge/-Next_js-black?style=for-the-badge&logoColor=58C4DC&logo=react&color=FFFFFF" alt="Next.JS" style='margin-right:10px'/>
